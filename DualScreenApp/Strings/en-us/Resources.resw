@@ -125,10 +125,6 @@
     <value>DualScreenApp</value>
     <comment>Application description</comment>
   </data>
-  <data name="Shell_ImageGallery.Content" xml:space="preserve">
-    <value>Image gallery</value>
-    <comment>Navigation view item name for Main</comment>
-  </data>
   <data name="ExceptionSettingsStorageExtensionsFileNameIsNullOrEmpty" xml:space="preserve">
     <value>File name is null or empty. Specify a valid file name</value>
     <comment>File name is null or empty to save file in settings storage extensions</comment>
@@ -184,5 +180,9 @@
   <data name="MasterDetailTitle.Text" xml:space="preserve">
     <value>MasterDetail</value>
     <comment>Title for MasterDetail</comment>
+  </data>
+  <data name="Shell_Main.Content" xml:space="preserve">
+    <value>Main</value>
+    <comment>Navigation view item name for Main</comment>
   </data>
 </root>

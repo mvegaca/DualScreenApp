@@ -11,8 +11,6 @@ namespace DualScreenApp.Core.Services
     // TODO WTS: Delete this file once your app is using real data.
     public static class SampleDataService
     {
-        private static ICollection<SampleImage> _gallerySampleData;
-
         private static IEnumerable<SampleOrder> _allOrders;
 
         private static IEnumerable<SampleOrder> AllOrders()
@@ -485,58 +483,11 @@ namespace DualScreenApp.Core.Services
             };
         }        
 
-        // TODO WTS: Remove this once your ContentGrid page is displaying real data.
-        public static async Task<IEnumerable<SampleOrder>> GetContentGridDataAsync()
-        {
-            if (_allOrders == null)
-            {
-                _allOrders = AllOrders();
-            }
-
-            await Task.CompletedTask;
-            return _allOrders;
-        }
-
-        // TODO WTS: Remove this once your grid page is displaying real data.
-        public static async Task<IEnumerable<SampleOrder>> GetGridDataAsync()
-        {
-            await Task.CompletedTask;
-            return AllOrders();
-        }
-
-        // TODO WTS: Remove this once your image gallery page is displaying real data.
-        public static async Task<IEnumerable<SampleImage>> GetImageGalleryDataAsync(string localResourcesPath)
-        {
-            if (_gallerySampleData == null)
-            {
-                _gallerySampleData = new List<SampleImage>();
-                for (int i = 1; i <= 10; i++)
-                {
-                    _gallerySampleData.Add(new SampleImage()
-                    {
-                        ID = $"{i}",
-                        Source = $"{localResourcesPath}/SampleData/SamplePhoto{i}.png",
-                        Name = $"Image sample {i}"
-                    });
-                }
-            }
-
-            await Task.CompletedTask;
-            return _gallerySampleData;
-        }
-
         // TODO WTS: Remove this once your MasterDetail pages are displaying real data.
         public static async Task<IEnumerable<SampleOrder>> GetMasterDetailDataAsync()
         {
             await Task.CompletedTask;
             return AllOrders();
-        }
-
-        // TODO WTS: Remove this once your TreeView page is displaying real data.
-        public static async Task<IEnumerable<SampleCompany>> GetTreeViewDataAsync()
-        {
-            await Task.CompletedTask;
-            return AllCompanies();
         }
     }
 }
