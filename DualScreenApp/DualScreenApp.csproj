@@ -231,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MasterDetailDetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -239,6 +243,9 @@
   <ItemGroup>
     <Compile Include="Views\ImageGalleryPage.xaml.cs">
       <DependentUpon>ImageGalleryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MasterDetailDetailControl.xaml.cs">
+      <DependentUpon>MasterDetailDetailControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>

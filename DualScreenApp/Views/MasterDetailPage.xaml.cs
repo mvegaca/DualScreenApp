@@ -14,12 +14,22 @@ namespace DualScreenApp.Views
         public MasterDetailPage()
         {
             InitializeComponent();
+            ViewModel.Initialize(twoPaneView);
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             await ViewModel.LoadDataAsync();
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            if (ViewModel.TryCloseDetail(e.Cancel))
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
