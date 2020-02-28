@@ -28,8 +28,14 @@
                     Grid.Column="1"
                     Margin="{StaticResource SmallLeftMargin}"
                     VerticalAlignment="Center">
-                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Company}" />
-                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Status}" />
+                    <TextBlock
+                        Style="{ThemeResource ListTitleStyle}">
+                        <Run Text="ID: " />
+                        <Run Text="{x:Bind OrderID}" />
+                        <Run Text=" - " />
+                        <Run Text="{x:Bind Status}" />
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Company}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
