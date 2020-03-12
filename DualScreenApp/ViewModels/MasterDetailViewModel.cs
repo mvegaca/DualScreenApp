@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DualScreenApp.Core.Models;
 using DualScreenApp.Core.Services;
 using DualScreenApp.Helpers;
-using Windows.UI.Xaml;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace DualScreenApp.ViewModels
@@ -18,7 +16,6 @@ namespace DualScreenApp.ViewModels
         private ICommand _itemClickCommand;
         private ICommand _modeChangedCommand;
 
-        private bool _isWidePaneMode;
         private WinUI.TwoPaneViewPriority _twoPanePriority;
         
 
@@ -32,12 +29,6 @@ namespace DualScreenApp.ViewModels
         {
             get { return _twoPanePriority; }
             set { Set(ref _twoPanePriority, value); }
-        }
-
-        public bool IsWidePaneMode
-        {
-            get { return _isWidePaneMode; }
-            set { Set(ref _isWidePaneMode, value); }
         }
 
         public ObservableCollection<SampleOrder> SampleItems { get; private set; } = new ObservableCollection<SampleOrder>();
@@ -97,8 +88,6 @@ namespace DualScreenApp.ViewModels
             {
                 TwoPanePriority = WinUI.TwoPaneViewPriority.Pane2;
             }
-
-            IsWidePaneMode = twoPaneView.Mode == WinUI.TwoPaneViewMode.Wide;
         }
     }
 }

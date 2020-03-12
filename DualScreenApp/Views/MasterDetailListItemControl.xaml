@@ -23,8 +23,8 @@
                         <stateTriggers:ControlSizeTrigger MinWidth="480" TargetElement="{x:Bind Path=mainGrid}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="shortItemPanel.Visibility" Value="Collapsed" />
                         <Setter Target="extendedItemPanel.Visibility" Value="Visible" />
+                        <Setter Target="shortItemPanel.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -37,7 +37,7 @@
             Grid.Column="0"
             VerticalAlignment="Center"
             FontSize="32"
-            Glyph="{Binding Symbol}" />
+            Glyph="{x:Bind Item.Symbol, Mode=OneWay}" />
 
         <Grid Grid.Column="1" Width="1000"/>
 
@@ -48,12 +48,12 @@
             VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Style="{ThemeResource ListTitleStyle}" Text="ID:" />
-                <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{Binding OrderID}" Margin="{StaticResource XSmallLeftMargin}" />
+                <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Item.OrderID, Mode=OneWay}" Margin="{StaticResource XSmallLeftMargin}" />
                 <TextBlock Style="{ThemeResource ListTitleStyle}" Text="Status:" Margin="{StaticResource SmallLeftMargin}" />
-                <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{Binding Status}" Margin="{StaticResource XSmallLeftMargin}" />
+                <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Item.Status, Mode=OneWay}" Margin="{StaticResource XSmallLeftMargin}" />
             </StackPanel>
 
-            <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{Binding Company}" />
+            <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Item.Company, Mode=OneWay}" />
         </StackPanel>
 
         <StackPanel
@@ -69,16 +69,16 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <TextBlock Style="{ThemeResource ListTitleStyle}" Text="ID:"/>
-                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{Binding OrderID}" Margin="{StaticResource XSmallLeftMargin}" />
+                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Item.OrderID, Mode=OneWay}" Margin="{StaticResource XSmallLeftMargin}" />
                     <TextBlock Style="{ThemeResource ListTitleStyle}" Text="Status: " Margin="{StaticResource SmallLeftMargin}" />
-                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{Binding Status}" Margin="{StaticResource XSmallLeftMargin}" />
+                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Item.Status, Mode=OneWay}" Margin="{StaticResource XSmallLeftMargin}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="{StaticResource XSmallLeftMargin}">
-                    <TextBlock Style="{ThemeResource ListSubTitleStyle}" Text="{Binding OrderDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm'}" />
+                    <TextBlock Style="{ThemeResource ListSubTitleStyle}" Text="{x:Bind Item.OrderDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm', Mode=OneWay}" />
                 </StackPanel>
             </Grid>
             <Grid Width="680" />
-            <TextBlock Style="{ThemeResource ListSubTitleStyle}" Text="{Binding ShipTo}" />
+            <TextBlock Style="{ThemeResource ListSubTitleStyle}" Text="{x:Bind Item.ShipTo, Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </UserControl>

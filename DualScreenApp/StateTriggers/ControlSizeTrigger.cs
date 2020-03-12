@@ -1,31 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 
 namespace DualScreenApp.StateTriggers
 {
     public class ControlSizeTrigger : StateTriggerBase
     {
-        private double _minHeight = -1;
-        private double _minWidth = -1;
-        private double _currentHeight;
         private double _currentWidth;
         private FrameworkElement _targetElement;
 
-        public double MinHeight
-        {
-            get { return _minHeight; }
-            set { _minHeight = value; }
-        }
-
-        public double MinWidth
-        {
-            get { return _minWidth; }
-            set { _minWidth = value; }
-        }
+        public double MinWidth { get; set; } = -1;
 
         public FrameworkElement TargetElement
         {
@@ -48,30 +30,19 @@ namespace DualScreenApp.StateTriggers
 
         private void OnTargetElementSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _currentHeight = e.NewSize.Height;
             _currentWidth = e.NewSize.Width;
             UpdateTrigger();
         }
+
         private void UpdateTrigger()
         {
-            if (_targetElement != null && (_minWidth > 0 || _minHeight > 0))
+            if (_targetElement == null || MinWidth == 0)
             {
-                if (_minHeight > 0 && _minWidth > 0)
-                {
-                    SetActive((_currentHeight >= _minHeight) && (_currentWidth >= _minWidth));
-                }
-                else if (_minHeight > 0)
-                {
-                    SetActive(_currentHeight >= _minHeight);
-                }
-                else
-                {
-                    SetActive(_currentWidth >= _minWidth);
-                }
+                SetActive(false);                
             }
             else
             {
-                SetActive(false);
+                SetActive(_currentWidth >= MinWidth);
             }
         }
     }

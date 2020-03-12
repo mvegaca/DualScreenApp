@@ -24,11 +24,11 @@
                 <FontIcon
                     FontSize="80"
                     HorizontalAlignment="Left"
-                    Glyph="{x:Bind MasterMenuItem.Symbol}" />
+                    Glyph="{x:Bind SelectedItem.Symbol}" />
                 <TextBlock
                     Margin="{StaticResource SmallLeftMargin}"
                     Style="{ThemeResource TitleTextBlockStyle}"
-                    Text="{x:Bind MasterMenuItem.Company}" />
+                    Text="{x:Bind SelectedItem.Company}" />
             </StackPanel>
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
@@ -36,48 +36,48 @@
                 Text="Status" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind MasterMenuItem.Status}" />
+                Text="{x:Bind SelectedItem.Status}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Order date" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind MasterMenuItem.OrderDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm'}" />
+                Text="{x:Bind SelectedItem.OrderDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm'}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Company" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind MasterMenuItem.Company}" />
+                Text="{x:Bind SelectedItem.Company}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Ship to" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind MasterMenuItem.ShipTo}" />
+                Text="{x:Bind SelectedItem.ShipTo}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Shipped date" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind MasterMenuItem.ShippedDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm'}" />
+                Text="{x:Bind SelectedItem.ShippedDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm'}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Order total" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind MasterMenuItem.OrderTotal}" />
+                Text="{x:Bind SelectedItem.OrderTotal}" />
             <TextBlock
                 Margin="{StaticResource LargeTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Order details:" />
             <ItemsControl
-                ItemsSource="{x:Bind MasterMenuItem.Details}"
+                ItemsSource="{x:Bind SelectedItem.Details}"
                 Margin="-12,0,0,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="models:SampleOrderDetail">

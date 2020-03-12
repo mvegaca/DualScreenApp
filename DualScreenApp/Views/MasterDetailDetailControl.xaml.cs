@@ -8,20 +8,20 @@ namespace DualScreenApp.Views
 {
     public sealed partial class MasterDetailDetailControl : UserControl
     {
-        public SampleOrder MasterMenuItem
+        public SampleOrder SelectedItem
         {
-            get { return GetValue(MasterMenuItemProperty) as SampleOrder; }
-            set { SetValue(MasterMenuItemProperty, value); }
+            get { return GetValue(SelectedItemProperty) as SampleOrder; }
+            set { SetValue(SelectedItemProperty, value); }
         }
 
-        public static readonly DependencyProperty MasterMenuItemProperty = DependencyProperty.Register("MasterMenuItem", typeof(SampleOrder), typeof(MasterDetailDetailControl), new PropertyMetadata(null, OnMasterMenuItemPropertyChanged));
+        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(SampleOrder), typeof(MasterDetailDetailControl), new PropertyMetadata(null, OnSelectedItemPropertyChanged));
 
         public MasterDetailDetailControl()
         {
             this.InitializeComponent();
         }
 
-        private static void OnMasterMenuItemPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSelectedItemPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as MasterDetailDetailControl;
             control.ForegroundElement.ChangeView(0, 0, 1);
