@@ -6,18 +6,21 @@ using System.Windows.Input;
 using DualScreenApp.Core.Models;
 using DualScreenApp.Core.Services;
 using DualScreenApp.Helpers;
-using Microsoft.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace DualScreenApp.ViewModels
 {
     public class MasterDetailViewModel : Observable
     {
-        private TwoPaneView _twoPaneView;
-        private ICommand _selectionChangedCommand;
+        private WinUI.TwoPaneView _twoPaneView;
         private SampleOrder _selected;
+        private ICommand _itemClickCommand;
+        private ICommand _modeChangedCommand;
 
+        private bool _isWidePaneMode;
         private WinUI.TwoPaneViewPriority _twoPanePriority;
+        
 
         public SampleOrder Selected
         {
@@ -31,15 +34,23 @@ namespace DualScreenApp.ViewModels
             set { Set(ref _twoPanePriority, value); }
         }
 
+        public bool IsWidePaneMode
+        {
+            get { return _isWidePaneMode; }
+            set { Set(ref _isWidePaneMode, value); }
+        }
+
         public ObservableCollection<SampleOrder> SampleItems { get; private set; } = new ObservableCollection<SampleOrder>();
 
-        public ICommand SelectionChangedCommand => _selectionChangedCommand ?? (_selectionChangedCommand = new RelayCommand(OnSelectionChanged));
+        public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand(OnItemClick));
+
+        public ICommand ModeChangedCommand => _modeChangedCommand ?? (_modeChangedCommand = new RelayCommand<WinUI.TwoPaneView>(OnModeChanged));
 
         public MasterDetailViewModel()
         {
         }
 
-        public void Initialize(TwoPaneView twoPaneView)
+        public void Initialize(WinUI.TwoPaneView twoPaneView)
         {
             _twoPaneView = twoPaneView;
         }
@@ -72,12 +83,22 @@ namespace DualScreenApp.ViewModels
             return false;
         }
 
-        private void OnSelectionChanged()
+        private void OnItemClick()
         {
             if (_twoPaneView.Mode == WinUI.TwoPaneViewMode.SinglePane)
             {
                 TwoPanePriority = WinUI.TwoPaneViewPriority.Pane2;
             }
+        }
+
+        private void OnModeChanged(WinUI.TwoPaneView twoPaneView)
+        {
+            if (twoPaneView.Mode == WinUI.TwoPaneViewMode.SinglePane)
+            {
+                TwoPanePriority = WinUI.TwoPaneViewPriority.Pane2;
+            }
+
+            IsWidePaneMode = twoPaneView.Mode == WinUI.TwoPaneViewMode.Wide;
         }
     }
 }

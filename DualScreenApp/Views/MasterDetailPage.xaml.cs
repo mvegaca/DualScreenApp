@@ -1,7 +1,5 @@
-﻿using System;
-
+﻿
 using DualScreenApp.ViewModels;
-
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -14,6 +12,7 @@ namespace DualScreenApp.Views
         public MasterDetailPage()
         {
             InitializeComponent();
+            DataContext = ViewModel;
             ViewModel.Initialize(twoPaneView);
         }
 
@@ -25,8 +24,8 @@ namespace DualScreenApp.Views
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            base.OnNavigatingFrom(e);
-            if (ViewModel.TryCloseDetail(e.Cancel))
+            base.OnNavigatingFrom(e);           
+            if (e.NavigationMode == NavigationMode.Back && ViewModel.TryCloseDetail(e.Cancel))
             {
                 e.Cancel = true;
             }

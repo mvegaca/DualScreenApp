@@ -8,37 +8,16 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     xmlns:model="using:DualScreenApp.Core.Models"
-    xmlns:behaviors="using:DualScreenApp.Behaviors" xmlns:views="using:DualScreenApp.Views"
+    xmlns:behaviors="using:DualScreenApp.Behaviors"
+    xmlns:views="using:DualScreenApp.Views"
+    xmlns:toolkitConverters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:converters="using:DualScreenApp.Converters"
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="ItemTemplate" x:DataType="model:SampleOrder">
-            <Grid Height="60">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <FontIcon
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    FontSize="32"
-                    Glyph="{x:Bind Symbol}" />
-                <StackPanel
-                    Grid.Column="1"
-                    Margin="{StaticResource SmallLeftMargin}"
-                    VerticalAlignment="Center">
-                    <TextBlock
-                        Style="{ThemeResource ListTitleStyle}">
-                        <Run Text="ID: " />
-                        <Run Text="{x:Bind OrderID}" />
-                        <Run Text=" - " />
-                        <Run Text="{x:Bind Status}" />
-                    </TextBlock>
-                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Company}" />
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
+        <toolkitConverters:BoolToVisibilityConverter x:Name="ReverseBoolToVisibility" TrueValue="Collapsed" FalseValue="Visible" />
+        <converters:DateTimeFormatConverter x:Name="dateTimeFormatConverter" />
     </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
@@ -54,17 +33,24 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        
         <winui:TwoPaneView
             x:Name="twoPaneView"
             Pane1Length="280"
             Pane2Length="*"
             PanePriority="{x:Bind ViewModel.TwoPanePriority, Mode=OneWay}"
+            MinWideModeWidth="680"
             WideModeConfiguration="LeftRight"
             TallModeConfiguration="SinglePane"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="ModeChanged">
+                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ModeChangedCommand}" />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
             <winui:TwoPaneView.Pane1>
-                <Grid>
+                <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="*" />
@@ -76,16 +62,98 @@
                         VerticalAlignment="Center"
                         Style="{StaticResource ListTitleStyle}" />
                     <ListView
+                        x:Name="sampleDataListView"
                         Grid.Row="1"
                         ItemsSource="{x:Bind ViewModel.SampleItems}"
-                        ItemTemplate="{StaticResource ItemTemplate}"
+                        IsItemClickEnabled="True"
                         SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}">
                         <i:Interaction.Behaviors>
-                            <ic:EventTriggerBehavior EventName="SelectionChanged">
-                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" />
+                            <ic:EventTriggerBehavior EventName="ItemClick">
+                                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand}" />
                             </ic:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate x:DataType="model:SampleOrder">
+                                <views:MasterDetailListItemControl DataContext="{Binding}" />                                
+                                <!--
+                                <UserControl>
+                                    <Grid Height="80" Margin="{StaticResource SmallLeftRightMargin}">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup>
+                                                <VisualState>
+                                                    <VisualState.StateTriggers>
+                                                        <AdaptiveTrigger MinWindowWidth="600" />
+                                                        <StateTrigger IsActive="{Binding ElementName=sampleDataListView, Path=DataContext.IsWidePaneMode}" />
+                                                    </VisualState.StateTriggers>
+                                                    <VisualState.Setters>
+                                                        <Setter Target="widePanel.Visibility" Value="Collapsed" />
+                                                        <Setter Target="tallOrSinglePanel.Visibility" Value="Visible" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <FontIcon
+                                            Grid.Column="0"
+                                            VerticalAlignment="Center"
+                                            FontSize="32"
+                                            Glyph="{x:Bind Symbol}" />
+
+                                        <StackPanel
+                                            x:Name="widePanel"
+                                            Grid.Column="1"
+                                            Margin="{StaticResource SmallLeftMargin}"
+                                            VerticalAlignment="Center"                                            
+                                            Visibility="Collapsed"
+                                            Loaded="OnWidePanelLoaded">
+                                            Visibility="{Binding ElementName=sampleDataListView, Path=DataContext.IsWidePaneMode}"
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{ThemeResource ListTitleStyle}" Text="ID:" />
+                                                <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind OrderID}" Margin="{StaticResource XSmallLeftMargin}" />
+                                                <TextBlock Style="{ThemeResource ListTitleStyle}" Text="Status:" Margin="{StaticResource SmallLeftMargin}" />
+                                                <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Status}" Margin="{StaticResource XSmallLeftMargin}" />
+                                            </StackPanel>
+
+                                            <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Company}" />
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            x:Name="tallOrSinglePanel"
+                                            Grid.Column="1"
+                                            Margin="{StaticResource SmallLeftMargin}"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed"
+                                            Loaded="OnTallOrSinglePanelLoaded">
+                                            Visibility="{Binding ElementName=sampleDataListView, Path=DataContext.IsWidePaneMode, Converter={StaticResource ReverseBoolToVisibility}}"
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="ID:"/>
+                                                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind OrderID}" Margin="{StaticResource XSmallLeftMargin}" />
+                                                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="Status: " Margin="{StaticResource SmallLeftMargin}" />
+                                                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Status}" Margin="{StaticResource XSmallLeftMargin}" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="{StaticResource XSmallLeftMargin}">
+                                                    <TextBlock Style="{ThemeResource ListSubTitleStyle}" Text="{x:Bind OrderDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm'}" />
+                                                </StackPanel>
+                                            </Grid>
+                                            <Grid Width="680" />
+                                            <TextBlock Style="{ThemeResource ListSubTitleStyle}" Text="{x:Bind ShipTo}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </UserControl>
+                                -->
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
+                    
                 </Grid>
             </winui:TwoPaneView.Pane1>
             <winui:TwoPaneView.Pane2>
