@@ -24,11 +24,11 @@
                 <FontIcon
                     FontSize="80"
                     HorizontalAlignment="Left"
-                    Glyph="{x:Bind SelectedItem.Symbol}" />
+                    Glyph="{x:Bind SelectedItem.Symbol, Mode=OneWay}" />
                 <TextBlock
                     Margin="{StaticResource SmallLeftMargin}"
                     Style="{ThemeResource TitleTextBlockStyle}"
-                    Text="{x:Bind SelectedItem.Company}" />
+                    Text="{x:Bind SelectedItem.Company, Mode=OneWay}" />
             </StackPanel>
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
@@ -36,48 +36,48 @@
                 Text="Status" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind SelectedItem.Status}" />
+                Text="{x:Bind SelectedItem.Status, Mode=OneWay}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Order date" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind SelectedItem.OrderDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm'}" />
+                Text="{x:Bind SelectedItem.OrderDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm', Mode=OneWay}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Company" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind SelectedItem.Company}" />
+                Text="{x:Bind SelectedItem.Company, Mode=OneWay}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Ship to" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind SelectedItem.ShipTo}" />
+                Text="{x:Bind SelectedItem.ShipTo, Mode=OneWay}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Shipped date" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind SelectedItem.ShippedDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm'}" />
+                Text="{x:Bind SelectedItem.ShippedDate, Converter={StaticResource dateTimeFormatConverter}, ConverterParameter='dd/MM/yy hh:mm', Mode=OneWay}" />
             <TextBlock
                 Margin="{StaticResource SmallTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Order total" />
             <TextBlock
                 Style="{StaticResource DetailBodyBaseMediumStyle}"
-                Text="{x:Bind SelectedItem.OrderTotal}" />
+                Text="{x:Bind SelectedItem.OrderTotal, Mode=OneWay}" />
             <TextBlock
                 Margin="{StaticResource LargeTopMargin}"
                 Style="{StaticResource DetailSubTitleStyle}"
                 Text="Order details:" />
             <ItemsControl
-                ItemsSource="{x:Bind SelectedItem.Details}"
+                ItemsSource="{x:Bind SelectedItem.Details, Mode=OneWay}"
                 Margin="-12,0,0,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="models:SampleOrderDetail">
@@ -100,7 +100,7 @@
                                         Text="Product ID" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind ProductID}" />
+                                    Text="{x:Bind ProductID, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Margin="{StaticResource SmallLeftMargin}">
                                 <TextBlock                                        
@@ -108,7 +108,7 @@
                                     Text="Product name" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind ProductName}" />
+                                    Text="{x:Bind ProductName, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" Margin="{StaticResource SmallLeftMargin}">
                                 <TextBlock                                        
@@ -116,7 +116,7 @@
                                     Text="Quantity per unit" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind QuantityPerUnit}" />
+                                    Text="{x:Bind QuantityPerUnit, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="{StaticResource SmallLeftTopMargin}">
                                 <TextBlock                                        
@@ -124,7 +124,7 @@
                                     Text="Quantity" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind Quantity}" />
+                                    Text="{x:Bind Quantity, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="{StaticResource SmallLeftTopMargin}">
                                 <TextBlock                                        
@@ -132,7 +132,7 @@
                                     Text="Total" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind Total}" />
+                                    Text="{x:Bind Total, Mode=OneWay}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

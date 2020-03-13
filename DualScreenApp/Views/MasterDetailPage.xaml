@@ -73,7 +73,6 @@
                         </i:Interaction.Behaviors>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="model:SampleOrder">
-                                <!--<views:MasterDetailListItemControl DataContext="{Binding}" />-->
                                 <views:MasterDetailListItemControl Item="{Binding}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
