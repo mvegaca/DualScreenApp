@@ -100,7 +100,7 @@
                                         Text="Product ID" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind ProductID, Mode=OneWay}" />
+                                    Text="{x:Bind ProductID}" />
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Margin="{StaticResource SmallLeftMargin}">
                                 <TextBlock                                        
@@ -108,7 +108,7 @@
                                     Text="Product name" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind ProductName, Mode=OneWay}" />
+                                    Text="{x:Bind ProductName}" />
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" Margin="{StaticResource SmallLeftMargin}">
                                 <TextBlock                                        
@@ -116,7 +116,7 @@
                                     Text="Quantity per unit" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind QuantityPerUnit, Mode=OneWay}" />
+                                    Text="{x:Bind QuantityPerUnit}" />
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="{StaticResource SmallLeftTopMargin}">
                                 <TextBlock                                        
@@ -124,7 +124,7 @@
                                     Text="Quantity" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind Quantity, Mode=OneWay}" />
+                                    Text="{x:Bind Quantity}" />
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="{StaticResource SmallLeftTopMargin}">
                                 <TextBlock                                        
@@ -132,7 +132,7 @@
                                     Text="Total" />
                                 <TextBlock
                                     Style="{StaticResource DetailBodyBaseMediumStyle}"
-                                    Text="{x:Bind Total, Mode=OneWay}" />
+                                    Text="{x:Bind Total}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
