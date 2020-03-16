@@ -226,7 +226,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="StateTriggers\ControlSizeTrigger.cs" />
-    <Compile Include="TemplateSelectors\TwoPaneViewModeTemplateSelector.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
