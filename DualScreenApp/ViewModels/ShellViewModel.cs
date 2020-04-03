@@ -56,6 +56,7 @@ namespace DualScreenApp.ViewModels
             NavigationService.Frame = frame;
             NavigationService.NavigationFailed += Frame_NavigationFailed;
             NavigationService.Navigated += Frame_Navigated;
+            NavigationService.OnCurrentPageCanGoBackChanged += OnCurrentPageCanGoBackChanged;
             _navigationView.BackRequested += OnBackRequested;
         }
 
@@ -92,6 +93,9 @@ namespace DualScreenApp.ViewModels
         {
             throw e.Exception;
         }
+
+        private void OnCurrentPageCanGoBackChanged(object sender, bool currentPageCanGoBack)
+            => IsBackEnabled = NavigationService.CanGoBack || currentPageCanGoBack;
 
         private void Frame_Navigated(object sender, NavigationEventArgs e)
         {

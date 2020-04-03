@@ -24,6 +24,7 @@
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
         IsSettingsVisible="True"
+        ExpandedModeThresholdWidth="1280"
         Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <winui:NavigationView.MenuItems>
             <!--
@@ -33,7 +34,7 @@
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
             <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Document" helpers:NavHelper.NavigateTo="views:MainPage" />
-            <winui:NavigationViewItem x:Uid="Shell_MasterDetail" Icon="Document" helpers:NavHelper.NavigateTo="views:MasterDetailPage" />
+            <winui:NavigationViewItem x:Uid="Shell_TwoPaneView" Icon="Document" helpers:NavHelper.NavigateTo="views:TwoPaneViewPage" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior

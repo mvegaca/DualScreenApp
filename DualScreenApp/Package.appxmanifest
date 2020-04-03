@@ -8,11 +8,11 @@
   IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="8079BD9B-6111-4DA3-9E0D-B30FBC11711C"
+    Name="0AF32D16-AB90-4D9C-BC99-783BD01A3E4A"
     Publisher="CN=mvega"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="8079BD9B-6111-4DA3-9E0D-B30FBC11711C" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="0AF32D16-AB90-4D9C-BC99-783BD01A3E4A" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>DualScreenApp</DisplayName>

@@ -11,7 +11,7 @@ namespace DualScreenApp.StateTriggers
 
         public FrameworkElement TargetElement
         {
-            get { return _targetElement; }
+            get => _targetElement;
             set
             {
                 if (_targetElement != null)
@@ -38,7 +38,7 @@ namespace DualScreenApp.StateTriggers
         {
             if (_targetElement == null || MinWidth == 0)
             {
-                SetActive(false);                
+                SetActive(false);
             }
             else
             {

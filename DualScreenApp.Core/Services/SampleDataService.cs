@@ -11,8 +11,6 @@ namespace DualScreenApp.Core.Services
     // TODO WTS: Delete this file once your app is using real data.
     public static class SampleDataService
     {
-        private static IEnumerable<SampleOrder> _allOrders;
-
         private static IEnumerable<SampleOrder> AllOrders()
         {
             // The following is order summary data
@@ -481,10 +479,10 @@ namespace DualScreenApp.Core.Services
                     }
                 }
             };
-        }        
+        }
 
-        // TODO WTS: Remove this once your MasterDetail pages are displaying real data.
-        public static async Task<IEnumerable<SampleOrder>> GetMasterDetailDataAsync()
+        // TODO WTS: Remove this once your TwoPaneView pages are displaying real data.
+        public static async Task<IEnumerable<SampleOrder>> GetTwoPaneViewDataAsync()
         {
             await Task.CompletedTask;
             return AllOrders();

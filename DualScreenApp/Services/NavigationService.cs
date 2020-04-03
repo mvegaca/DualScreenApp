@@ -1,5 +1,7 @@
 ﻿using System;
 
+using DualScreenApp.Helpers;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -11,10 +13,13 @@ namespace DualScreenApp.Services
     {
         public static event NavigatedEventHandler Navigated;
 
+        public static event EventHandler<bool> OnCurrentPageCanGoBackChanged;
+
         public static event NavigationFailedEventHandler NavigationFailed;
 
         private static Frame _frame;
         private static object _lastParamUsed;
+        private static bool _canCurrentPageGoBack;
 
         public static Frame Frame
         {
@@ -43,6 +48,15 @@ namespace DualScreenApp.Services
 
         public static bool GoBack()
         {
+            if (_canCurrentPageGoBack)
+            {
+                if (Frame.Content is FrameworkElement element && element.DataContext is IBackNavigationHandler navigationHandler)
+                {
+                    navigationHandler.GoBack();
+                    return true;
+                }
+            }
+
             if (CanGoBack)
             {
                 Frame.GoBack();
@@ -82,6 +96,7 @@ namespace DualScreenApp.Services
             if (_frame != null)
             {
                 _frame.Navigated += Frame_Navigated;
+                _frame.Navigating += Frame_Navigating;
                 _frame.NavigationFailed += Frame_NavigationFailed;
             }
         }
@@ -91,12 +106,36 @@ namespace DualScreenApp.Services
             if (_frame != null)
             {
                 _frame.Navigated -= Frame_Navigated;
+                _frame.Navigating -= Frame_Navigating;
                 _frame.NavigationFailed -= Frame_NavigationFailed;
             }
         }
 
         private static void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e) => NavigationFailed?.Invoke(sender, e);
 
-        private static void Frame_Navigated(object sender, NavigationEventArgs e) => Navigated?.Invoke(sender, e);
+        private static void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (Frame.Content is FrameworkElement element && element.DataContext is IBackNavigationHandler backNavigationHandler)
+            {
+                backNavigationHandler.OnPageCanGoBackChanged += OnPageCanGoBackChanged;
+            }
+
+            Navigated?.Invoke(sender, e);
+        }
+
+        private static void Frame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (Frame.Content is FrameworkElement element && element.DataContext is IBackNavigationHandler backNavigationHandler)
+            {
+                backNavigationHandler.OnPageCanGoBackChanged -= OnPageCanGoBackChanged;
+                _canCurrentPageGoBack = false;
+            }
+        }
+
+        private static void OnPageCanGoBackChanged(object sender, bool canCurrentPageGoBack)
+        {
+            _canCurrentPageGoBack = canCurrentPageGoBack;
+            OnCurrentPageCanGoBackChanged?.Invoke(sender, canCurrentPageGoBack);
+        }
     }
 }

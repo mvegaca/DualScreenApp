@@ -1,4 +1,6 @@
-﻿namespace DualScreenApp.Core.Models
+﻿using System;
+
+namespace DualScreenApp.Core.Models
 {
     // TODO WTS: Remove this class once your pages/features are using your data.
     // This is used by the SampleDataService.
